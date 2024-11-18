@@ -4,7 +4,6 @@ from sentence_transformers import SentenceTransformer, CrossEncoder, util
 from sklearn.metrics.pairwise import cosine_similarity
 from transformers import RobertaTokenizer, RobertaModel
 
-#torch.set_num_threads(1)
 class EmbeddingTransformer:
     embeddingModel: SentenceTransformer
     encoder: CrossEncoder
@@ -12,6 +11,7 @@ class EmbeddingTransformer:
     def __init__(self, model_name: str = "sentence-transformers/all-mpnet-base-v2",
                  crossEncoder: str = "cross-encoder/ms-marco-MiniLM-L-6-v2",
                  code_bert:str ="microsoft/codebert-base"):
+        torch.set_num_threads(1)
         model= SentenceTransformer(model_name)
         self.encoder = CrossEncoder(crossEncoder)
         self.code_bert_model = RobertaModel.from_pretrained(code_bert)
