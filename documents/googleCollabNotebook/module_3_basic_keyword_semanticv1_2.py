@@ -30,7 +30,7 @@ from scipy import spatial
 # The `spatial` module from the SciPy library provides functions for spatial operations and distance calculations.
 # It includes methods for computing various distance metrics such as Euclidean distance, cosine distance, etc.
 
-!pip install sentence_transformers openai unstructured
+#!pip install sentence_transformers openai unstructured
 
 """Let's discuss why we need chunking/ need to divide data - context length"""
 

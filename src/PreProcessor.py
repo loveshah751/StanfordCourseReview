@@ -8,8 +8,8 @@ from embeddings.FaissIndexing import FaissIndexing
 from model.PdfTextEmbedding import PdfTextEmbedding
 from AspectBasedExtractor import AspectBasedExtractor
 
-text_indexes_location = "../embeddingIndexes/text.index"
-code_indexes_location = "../embeddingIndexes/code.index"
+text_indexes_location = "embeddingIndexes/text.index"
+code_indexes_location = "embeddingIndexes/code.index"
 
 class PreProcessor:
     embeddingTransformer: EmbeddingTransformer
@@ -22,7 +22,7 @@ class PreProcessor:
         print("creating pre-processing instance")
         self.embeddingTransformer = EmbeddingTransformer()
         self.aspectBasedExtractor = AspectBasedExtractor()
-        document_loader = DocumentLoader("../documents/pdf/", "../documents/googleCollabNotebook/")
+        document_loader = DocumentLoader("documents/pdf", "documents/googleCollabNotebook/")
         self.pdf_documents = document_loader.process_pdf_documents( 120, 100)
         self.code_snippets = document_loader.load_python_files()
 

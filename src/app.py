@@ -1,8 +1,11 @@
 import time
+import tracemalloc
 
 import streamlit as st
 import sys
 import os
+
+tracemalloc.start()
 
 # Get the absolute path to the src directory
 src_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src'))
@@ -29,22 +32,7 @@ if "openai_model" not in st.session_state:
 if "messages" not in st.session_state:
     st.session_state.messages = []
 # Initial topics
-topics = [
-    "llm solutions module", "machine learning", "natural language processing", "nlp", "large language models",
-    "transformer", "encoders", "decoders", "self attention", "fine tuning",
-    "generative artificial intelligence", "foundational models", "language models", "text", "statistics",
-    "text data", "sensible and contextually appropriate sentences", "complex architectures", "transformer networks",
-    "parameters", "training data", "high quality text", "training", "natural language generation",
-    "natural language understanding", "tokenization", "entity recognition", "text classification", "multimodal nlp",
-    "word embeddings", "topic models", "semantic search", "information retrieval", "question answering",
-    "machine translation", "summarization", "auto completion", "spell correction", "semantic metadata",
-    "knowledge graphs", "prompt engineering", "validation metrics", "ne tuning", "prompt tuning",
-    "zero shot prompting", "few shot prompting", "contextual clues", "model understanding", "arithmetic operations",
-    "neural networks", "deep learning models", "computational linguistics", "data integration", "data unification",
-    "data analytics", "retrieval systems", "semantic search", "approximate nearest neighbors", "cosine similarity",
-    "euclidean distance", "faiss", "agent", "autogen", "content creation", "multi agent framework", "task flexibility",
-    "context retention", "subtasks", "domain expertise", "customizable agents", "complex task automation"
-]
+topics = app_runner.available_topics
 # Initialize session state for pagination
 if "topic_index" not in st.session_state:
     st.session_state.topic_index = 0
@@ -98,12 +86,14 @@ if user_prompt := st.chat_input("What is up?"):
         response_placeholder.markdown(full_response + "_")
         time.sleep(0.02)  # Adjust the speed to your liking
 
-    # Finalize the response
-    #response_placeholder.markdown(full_response)
-    # full_response = llm_Client.extract_llm_streaming_response(stream)
-    # with st.chat_message("assistant"):
-    #     st.markdown(full_response)
     st.session_state.messages.append({"role": "assistant", "content": full_response})
+
+current, peak = tracemalloc.get_traced_memory()
+print(f"Current memory usage: {current / 10**6} MB")
+print(f"Peak memory usage: {peak / 10**6} MB")
+
+# Stop tracing memory allocations
+tracemalloc.stop()
 
 
 
