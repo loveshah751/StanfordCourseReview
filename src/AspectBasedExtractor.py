@@ -49,5 +49,4 @@ class AspectBasedExtractor:
         paragraph_aspects = self.extract_aspects_from_paragraph(pdfs)
         aspect_prompt = get_aspect_prompt(paragraph_aspects, course_summary_context) # Generate an LLM prompt using the query text and the extracted aspects
         llm_response = self.chat_gpt.generate_response(aspect_prompt) # Generate a response using the query text and the extracted aspects
-        print("response from LLM: ", llm_response)
         return ast.literal_eval(llm_response)

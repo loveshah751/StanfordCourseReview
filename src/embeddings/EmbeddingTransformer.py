@@ -8,9 +8,11 @@ class EmbeddingTransformer:
     embeddingModel: SentenceTransformer
     encoder: CrossEncoder
 
+
     def __init__(self, model_name: str = "sentence-transformers/all-mpnet-base-v2",
                  crossEncoder: str = "cross-encoder/ms-marco-MiniLM-L-6-v2",
                  code_bert:str ="microsoft/codebert-base"):
+
         torch.set_num_threads(1)
         model= SentenceTransformer(model_name)
         self.encoder = CrossEncoder(crossEncoder)
